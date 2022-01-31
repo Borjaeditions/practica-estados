@@ -9,7 +9,9 @@ part 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(const UserInitialState()) {
     on<ActivateUser>((event, emit) {
-      // TODO: implement event handler
+      //similar a node, el event recibe los datos y el emit es el que devuelve
+      print("ActivatedUser Call");
+      emit(UserSetSaste(event.user));
     });
   }
 }

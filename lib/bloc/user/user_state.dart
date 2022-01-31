@@ -18,3 +18,12 @@ class UserInitialState extends UserState {
   const UserInitialState(): super(existeUser: false, user: null);
 
 }
+
+class UserSetSaste extends UserState{
+
+  final Usuario newUser;
+  UserSetSaste(
+    this.newUser
+  ): super(existeUser: true, user: newUser);
+
+}

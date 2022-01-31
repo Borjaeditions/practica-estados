@@ -2,6 +2,7 @@ import 'package:estados/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:estados/models/usuario.dart';
 
 class Pagina1Page extends StatelessWidget {
 
@@ -19,10 +20,11 @@ class Pagina1Page extends StatelessWidget {
           builder: (context, state) {
       
             return state.existeUser
-              ? InformacionUsuario()
+              //según la lógica que tenemos, el state es el que va a mantener los datos nuevos proporcionados desde la otra ventana
+              ? InformacionUsuario(user: state.user! )
               : const Center( child: Text('No hay usuario seleccionado'));
       
-           }
+          }
       
             
           
@@ -42,6 +44,15 @@ class Pagina1Page extends StatelessWidget {
 
 class InformacionUsuario extends StatelessWidget {
 
+  final Usuario user;
+
+  const InformacionUsuario({
+
+    Key? key,
+    required this.user
+
+  }):super(key:key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,15 +66,15 @@ class InformacionUsuario extends StatelessWidget {
           Text('General', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold ) ),
           Divider(),
 
-          ListTile( title: Text('Nombre: ') ),
-          ListTile( title: Text('Edad: ') ),
+          ListTile( title: Text('Nombre: ${user.nombre}') ),
+          ListTile( title: Text('Edad: ${user.edad} ') ),
 
           Text('Profesiones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold ) ),
           Divider(),
 
-          ListTile( title: Text('Profesion 1') ),
-          ListTile( title: Text('Profesion 1') ),
-          ListTile( title: Text('Profesion 1') ),
+          //Esta linea funciona como un forecha, donde la variable "prof" recoge los arreglos
+          ...user.profesiones.map( (prof) => ListTile( title: Text('${prof}') )).toList()
+          
 
         ],
       ),
